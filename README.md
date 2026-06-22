@@ -35,6 +35,8 @@ This creates the `public.bookings` table and row-level security policies so:
 - anyone can submit a booking request
 - only `nmmckee@icloud.com` can read and update booking requests after signing in
 
+After running the SQL, make sure the `bookings` table is available to the Data API from the Supabase dashboard. Supabase's React quickstart says tables/functions should be exposed from `Integrations > Data API`, or you can enable default privileges for new public entities there.
+
 ## 4. Create Kelsey's login in Supabase Auth
 
 In Supabase Dashboard:
@@ -45,6 +47,9 @@ In Supabase Dashboard:
    `nmmckee@icloud.com`
 4. Set the password to:
    `password2`
+5. Make sure the user is confirmed.
+
+Supabase's Auth docs note that users with an unverified email typically cannot sign in by default, so either create the user as confirmed or confirm the email in the dashboard before testing login.
 
 If you want to change the admin email later, update both:
 
@@ -57,6 +62,16 @@ If you want to change the admin email later, update both:
 npm install
 npm run dev
 ```
+
+## 6. Verify the live connection
+
+After you add the real project values and create Kelsey's auth user, run:
+
+```bash
+SUPABASE_VERIFY_EMAIL=nmmckee@icloud.com SUPABASE_VERIFY_PASSWORD=password2 npm run verify:supabase
+```
+
+This signs in with Supabase Auth and confirms the `bookings` table is reachable through the app's current client configuration.
 
 ## What changed
 
